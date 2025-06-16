@@ -65,8 +65,12 @@ edit_message = true
     allowed_executables = [ "npx", "uvx" ]
 
 [UI]
+
+name = "Digital Mufti"
+hide_cot = true
+
 # Name of the assistant.
-name = "Assistant"
+name = "Digital Mufti"
 
 # default_theme = "dark"
 
