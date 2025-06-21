@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic&display=swap');
+
+/* === GLOBAL STYLING === */
+html, body {
+  background-color: #fdf8ef;
+  font-family: 'Noto Naskh Arabic', 'Segoe UI', sans-serif !important;
+  color: #2b2b2b;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+
+/* === HEADER / NAVBAR === */
+cl-header {
+  background: linear-gradient(to right, #117a65, #148f77) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+cl-header .title {
+  color: white !important;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+cl-header img.logo__image {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+/* === USER MESSAGES === */
+cl-chat-message[author="user"] .message-content {
+  background-color: #e0f2f1;
+  color: #004d40;
+  border-left: 5px solid #00796b;
+  border-radius: 12px;
+  padding: 12px 18px;
+  margin-bottom: 10px;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* === ASSISTANT MESSAGES === */
+cl-chat-message[author="assistant"] .message-content {
+  background-color: #fffde7;
+  color: #4e342e;
+  border-left: 5px solid #fbc02d;
+  border-radius: 12px;
+  padding: 12px 18px;
+  margin-bottom: 10px;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* === BUTTONS === */
+button {
+  background-color: #117a65 !important;
+  color: white !important;
+  font-weight: bold;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+button:hover {
+  background-color: #0e6655 !important;
+  cursor: pointer;
+}
+
+/* === TYPING INDICATOR === */
+.typing-indicator::after {
+  content: "⏳ Thinking...";
+  animation: pulse 1.5s infinite ease-in-out;
+  display: inline-block;
+  color: #117a65;
+  font-weight: bold;
+}
+
+/* === SCROLLBAR === */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #eee;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #117a65;
+  border-radius: 10px;
+}
+
+/* === MOBILE RESPONSIVE === */
+@media screen and (max-width: 768px) {
+  cl-chat-message[author="user"] .message-content,
+  cl-chat-message[author="assistant"] .message-content {
+    font-size: 0.95rem;
+  }
+  cl-header .title {
+    font-size: 1.2rem;
+  }
+  cl-header img.logo__image {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* === FADE-IN EFFECT === */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* === PULSE ANIMATION === */
+@keyframes pulse {
+  0% { opacity: 0.3; }
+  50% { opacity: 1; }
+  100% { opacity: 0.3; }
+}
+
+/* === DARK MODE SUPPORT === */
+@media (prefers-color-scheme: dark) {
+  html, body {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+  }
+  cl-chat-message[author="user"] .message-content {
+    background-color: #004d40;
+    color: #b2dfdb;
+  }
+  cl-chat-message[author="assistant"] .message-content {
+    background-color: #4e342e;
+    color: #fff9c4;
+  }
+  cl-header {
+    background: linear-gradient(to right, #004d40, #00695c) !important;
+  }
+  ::-webkit-scrollbar-track {
+    background: #2e2e2e;
+  }
+}
