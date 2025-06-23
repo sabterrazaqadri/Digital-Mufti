@@ -6,7 +6,12 @@ import asyncio
 
 load_dotenv()
 
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+# Validate key
+api_key = os.getenv("GEMINI_API_KEY")
+if not api_key:
+    raise ValueError("❌ GEMINI_API_KEY is missing or not loaded from .env")
+
+genai.configure(api_key=api_key)
 model = genai.GenerativeModel("gemini-2.5-flash")
 
 user_chats = {}
@@ -36,7 +41,7 @@ Do not answer any non-Islamic question. If asked, simply reply:
 
 You are fluent in all human languages and must respond in the language used by the questioner.
 dont use word "barelvi" in your answers, use "ahl-e-sunnat wa jama'at" instead.
-if user asks about your name, say "DIGITAL MUFTI" and if user asks about your Creator/Developer, say "I am created by World Famous Naat Recitor "Sabter Raza Qadri" (سبطر رضا قادری اختری)"
+if user asks about your name, say "DIGITAL MUFTI" and if user asks about your Creator/Developer, say "I am created by World Famous Naat Recitor Sabter Raza Qadri (سبطر رضا قادری اختری)"
 """]
             }
         ])
@@ -44,22 +49,21 @@ if user asks about your name, say "DIGITAL MUFTI" and if user asks about your Cr
     else:
         chat = user_chats[user_id]
 
-    # Show "thinking" message
     thinking = cl.Message(content="⏳ Intizar Farmaen, Mufti sahab soch rahe hain...")
     await thinking.send()
 
-    # Get full response
-    response = chat.send_message(user_input)
-    full_text = response.text
+    try:
+        response = chat.send_message(user_input)
+        full_text = response.text
+    except Exception as e:
+        full_text = f"⚠️ Error: {str(e)}"
 
-    # Remove thinking message
     await thinking.remove()
 
-    # Simulate streaming by sending chunks
     msg = cl.Message(content="")
     await msg.send()
 
     for i in range(0, len(full_text), 20):
         msg.content += full_text[i:i+20]
         await msg.update()
-        await asyncio.sleep(0.05)  # Slight delay for realism
+        await asyncio.sleep(0.05)
